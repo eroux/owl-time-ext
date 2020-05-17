@@ -1,24 +1,23 @@
 # owl-time-ext-lsind
 
-[Owl Time ontology](https://www.w3.org/TR/owl-time/) extension for Luni-solar Indic calendars.
+[Owl Time ontology](https://www.w3.org/TR/owl-time/) extension for Indic calendars.
 
 ## Scope
 
-The scope if this proposed extension is to cover most Luni-solar calendars of Indic origin, including:
-- South Asian calendar systems (Hindu)
-- Himalayan calendar systems (Tibetan, Bhutanese, Nepalese, etc.)
+The scope if this proposed extension is to cover most calendars of Indic origin, with a focus on Buddhist ones for the first iteration. This includes:
+- Himalayan calendar systems (Tibetan, Bhutanese, Newari, etc.)
 - South-East Asian calendar systems (Cambodian, Burmese, etc.)
-- because these are used very extensively in the covered areas, we also add properties for animal, gender and elemement for years, even though they are of Chinese origin
-
-This ontology may be extended for the Chinese calendar, or a new one will be created.
+- because these are used very extensively, we also define properties for animal, gender and elemement of years, even though they are of Chinese origin
 
 We limit ourselves to year cycles, years, months and days, future extensions might cover:
+- Chinese calendars
+- Hindu calendars
 - more precise units of time (hours, minutes, etc.)
 - astrological properties
 
 ## Design Philosophy
 
-The purpose of this ontology is not only to be used in modern controlled environments, but also to record all dates present in historical documents, some of which can be incomplete, ambiguous or even erroneous (resulting in impossible calculations). We take inspiration from [GODOT](https://godot.date) for this part.
+The purpose of this ontology is not only to be used in modern controlled environments, but also to record all dates present in historical documents, some of which can be incomplete, ambiguous or even erroneous (ex: February 30th 2020). We take inspiration from [GODOT](https://godot.date) for this part.
 
 #### Use cases
 
@@ -79,3 +78,16 @@ The jovian cycle is divided in 60 names, for which we provide individuals.
 - **Sewell1896**: Sewell R., *The Indian Calendar*
 - **Eade1995**: Eade J.C., *The Calendrical Systems of Mainland South-East Asia*
 - **Billard1962**: Billard R, *L'Astronomie Indienne*
+
+
+## RDF Conventions
+
+We follow the conventions to use English for the identifiers of property and class names. We do not follow that convention for individuals, because they don't have well accepted translations in English and have a lot of variations in spellings and scripts in their original languages. We thus use non-semantic identifiers (`:DOM09834`) in that case, à la RDA.
+
+## TODO
+
+- can/should xsd:gDay be used as a datatype for indicating the day of the month?
+
+## License
+
+The work is under the copyright of the authors listed below and is distributed under the [CC0 License](LICENSE).
