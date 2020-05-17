@@ -1,9 +1,32 @@
-# owl-time-ext-tib
-Owl Time ontology extension for Luni-solar Indic calendars.
+# owl-time-ext-lsind
 
-### Concepts
+[Owl Time ontology](https://www.w3.org/TR/owl-time/) extension for Luni-solar Indic calendars.
 
-Here is a list of concepts that appear in Luni-solar Indic calendars:
+## Scope
+
+The scope if this proposed extension is to cover most Luni-solar calendars of Indic origin, including:
+- South Asian calendar systems (Hindu)
+- Himalayan calendar systems (Tibetan, Bhutanese, Nepalese, etc.)
+- South-East Asian calendar systems (Cambodian, Burmese, etc.)
+
+This ontology may be extended for the Chinese calendar, or a new one will be created.
+
+We limit ourselves to year cycles, years, months and days, future extensions might cover:
+- more precise units of time (hours, minutes, etc.)
+- astrological properties
+
+## Design Philosophy
+
+The purpose of this ontology is not only to be used in modern controlled environments, but also to record all dates present in historical documents, some of which can be incomplete, ambiguous or even erroneous (resulting in impossible calculations). We take inspiration from [GODOT](https://godot.date) for this part.
+
+#### Use cases
+
+- encoding a date indicated in a document
+- encoding one or several possible interpretations for the Gregorian equivalent of a date 
+
+## Concepts
+
+Here is a list of concepts that we intend to cover:
 
 ##### Month of the year
 
@@ -15,7 +38,7 @@ Note: due to the [open world assumption](https://en.wikipedia.org/wiki/Open-worl
 
 Note: in specific calendar systems (not all), a month can be ommited and the calendar can go from month number 2 (in the sequence of 12 names) to month number 4.
 
-Note: in most systems, a month starts at the new moon, but in some others, it starts at the new moon.
+Note: in most systems, a month starts at the new moon, but in some others it starts at the full moon.
 
 ##### Day of the month
 
@@ -29,14 +52,26 @@ For the day of the week we use the individuals of the OWL-Time ontology, and pro
 
 Note that some Bhutanese calendars [are one day of the week off](http://kalacakra.org/calendar/bhut_art.htm). In that case when a day is considered to be a Monday in Bhutan, it is indicated as a Monday, even though it is a Tuesday in most other calendars.
 
-##### jovian cycle index
+#### Eras
 
-Some systems have the notion of a 60 years jovian cycle, and in some of these each 60 years cycle has an index, which is a number starting at 1.
+Some calendars have the concept of era. We provide an individual for each one.
 
-##### year in jovian cycle
+#### Jovian cycle
 
-The 
+Some systems have the notion of a 60 years cycle (ex: Tibetan rabjung) or of a jovian cycle (based on the position of Jupiter). Both cycles have the same origin and name years in a very similar fashion. We thus choose to conflate them in one concept which we name jovian cycle.
 
-### Assumptions
+Note: in some cases jovian cycles can have leap years (see [Sewell 1896](https://archive.org/details/indiancalendarwi00seweuoft) p. 32 & seq.).
 
-- For one calendar system, there is only one 
+##### Jovian cycle index
+
+In some calendar systems (ex: Tibetan), each jovian cycle is assigned an index (ex: the jovian cycle of index 1 starts in 1027 in Tibet). We represent it with a number. In order to allow references back to before the first jovian cycle, we don't put any restriction on the index (it can be negative).
+
+##### Year in jovian cycle
+
+The jovian cycle is divided in 60 names, for which we provide individuals.
+
+## Bibliography
+
+- Henning 2007: Henning E., Kālacakra and the Tibetan Calendar
+- Sewell 1896: Sewell R., The Indian Calendar
+- Eade 1995: Eade J.C., The Calendrical Systems of Mainland South-East Asia
