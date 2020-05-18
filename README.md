@@ -1,4 +1,4 @@
-# owl-time-ext-lsind
+# owl-time-ind
 
 [Owl Time ontology](https://www.w3.org/TR/owl-time/) extension for Indic calendars.
 
