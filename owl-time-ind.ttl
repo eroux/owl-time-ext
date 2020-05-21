@@ -5,4 +5,57 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix tind: <http://time-indic-extension.tmp/> .
+
+tind: a owl:Ontology ;
+  dct:created "2020-05-21"^^xsd:date ;
+  rdfs:comment "OWL-Time extension for Indic calendars"@en ;
+  rdfs:label "OWL-Time Indic"@en ;
+  owl:imports <http://www.w3.org/2006/time> .
+
+tind:IndicDateDescription rdfs:subClassOf time:TemporalPosition .
+
+tind:Era a owl:Class ;
+          skos:prefLabel "Era"@en ;
+          owl:sameAs <http://www.wikidata.org/entity/Q4375074> ;
+          rdfs:commentary "used to indicate any reference point in which years are counted, this can also be used for regnal years"@en .
+
+tind:TibetanRoyalEra a tind:Era ;
+                     skos:prefLabel "Tibetan Royal Era"@en ;
+                     skos:prefLabel "བོད་རྒྱལ།"@bo ;
+                     rdfs:commentary "to get the year in Tibetan Royal Era, add 127 to the Gregorian year."@en .
+
+tind:M03 a time:MonthOfYear ;
+          skos:prefLabel "ནག་པ།"@bo ;
+          skos:prefLabel "चैत्र"@sa-Deva .
+
+tind:YearInJovianCycle a owl:Class ;
+                       skos:prefLabel "year in jovian cycle"@en ;
+                       rdfs:comment "this class is open but 60 individuals are defined, corresponding to the typical 60 years found in Indic calendars"@en .
+
+tind:JY034 a tind:YearInJovianCycle ;
+           skos:prefLabel "ཀུན་ལྡན།"@bo ;
+           skos:prefLabel "सर्ववति"@sa-Deva .
+
+tind:Element a owl:Class ;
+             skos:prefLabel "element"@en .
+
+tind:Iron a tind:Element ;
+          skos:prefLabel "iron"@en .
+
+tind:Animal a owl:Class ;
+            skos:prefLabel "animal"@en .
+
+tind:Mouse a tind:Animal ;
+           skos:prefLabel "mouse"@en .
+
+tind:Gender a owl:Class ;
+            skos:prefLabel "gender"@en ;
+            rdfs:comment "gender associated with elements of the Chinese calendar"@en .
+
+tind:Male   a tind:Gender ;
+            skos:prefLabel "male"@en .
+
+tind:Female   a tind:Gender ;
+            skos:prefLabel "female"@en .
 

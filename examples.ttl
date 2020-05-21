@@ -1,0 +1,19 @@
+# In this first example we encode the 21 of May 2020 in the Phugpa calendar:
+
+# thursday, 29 of month 3 (caitra), 17th jovian cycle, year 34 (sarvavati) of the jovian cycle, tibetan royal year 2147, "common year" 2020, male iron mouse year
+
+ex:May21st2020Phugpa a tind:IndicDateDescription ;
+                     time:dayOfWeek :Thursday ;
+                     tind:dayOfMonth 29 ;
+                     tind:dayOfMonthDuplicate false ;
+                     time:monthOfYear tind:M001 ;
+                     tind:monthOfYearDuplicate false ;
+                     tind:yearInJovianCycle tind:JY034 ;
+                     tind:yearInEra [ a tind:YearInEra ;
+                          tind:era tind:TibetanRoyalEra ;
+                          rdfs:value 2047 ;
+                     ] ;
+                     time:year "2020"^^xsd:gYear ;
+                     tind:yearChineseElement tind:Iron ;
+                     tind:yearChineseAnimal tind:Mouse ;
+                     tind:yearGender tind:Male .

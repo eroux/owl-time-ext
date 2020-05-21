@@ -21,12 +21,23 @@ The purpose of this ontology is not only to be used in modern controlled environ
 
 #### Use cases
 
-- encoding a date indicated in a document
+The use cases focus on Digital Humanities:
+- encoding a date indicated in a document (most of the time a year or a date)
 - encoding one or several possible interpretations for the Gregorian equivalent of a date 
 
 ## Concepts
 
 Here is a list of concepts that we intend to cover:
+
+##### General perspective
+
+Although some details inevitably differ between the usage in different calendar systems, we consider that the general concepts of:
+- day
+- month
+- week
+- year
+
+are similar enough with those described in the OWL-Time ontology to use the related classes and properties directly, with no redefinition.
 
 ##### Month of the year
 
