@@ -1,6 +1,6 @@
 # owl-time-ind
 
-[Owl Time ontology](https://www.w3.org/TR/owl-time/) extension for Indic calendars.
+[OWL Time ontology](https://www.w3.org/TR/owl-time/) extension for Indic calendars.
 
 ## Scope
 
@@ -14,6 +14,10 @@ We limit ourselves to year cycles, years, months and days, future extensions mig
 - Hindu calendars
 - more precise units of time (hours, minutes, etc.)
 - astrological properties
+
+## Previous work
+
+Apart from the OWL Time ontology, ISO 19108:2002 has relevant concepts (see [these schemas](http://iso.sparxcloud.com/index.php)). They have been translated into RDF [here](https://def.isotc211.org/ontologies/iso19108/).
 
 ## Design Philosophy
 
