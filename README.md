@@ -19,6 +19,10 @@ We limit ourselves to year cycles, years, months and days, future extensions mig
 
 Apart from the OWL Time ontology, ISO 19108:2002 has relevant concepts (see [these schemas](http://iso.sparxcloud.com/index.php)). They have been translated into RDF [here](https://def.isotc211.org/ontologies/iso19108/).
 
+[Unicode CLDR UTS#35 Part 4](https://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html) has a way to encode some aspects of Luni-Solar calendars, such as leap months. See [this ticket](https://unicode-org.atlassian.net/browse/CLDR-13841) for a limitation.
+
+[ISO/TC154](https://www.isotc154.org) has a [Working Group on Date and time](https://www.isotc154.org/groups/wg5/) working on non-Gregorian calendar. See for instance [ISO/NP34300](https://www.isotc154.org/projects/iso-34300/). Contact attempts with the people involved have failed so far.
+
 ## Design Philosophy
 
 The purpose of this ontology is not only to be used in modern controlled environments, but also to record all dates present in historical documents, some of which can be incomplete, ambiguous or even erroneous (ex: February 30th 2020). We take inspiration from [GODOT](https://godot.date) for this part.
