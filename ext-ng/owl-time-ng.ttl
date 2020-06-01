@@ -1,0 +1,80 @@
+# baseURI: https://www.w3.org/2006/time/ng
+# imports: http://purl.org/dc/elements/1.1/
+# imports: http://www.w3.org/2006/time
+
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+time:Era
+  a owl:Class ;
+  rdfs:label "Era"@en ;
+  skos:definition """A year numbering system. 
+No assumption is made with regards to the details of the numbering such as the presence of a year 0, or the possibility of years numbered negatively.
+Any year numbering system can be an instance of this class, from Roman Emperor regnal years to Chinese eras."""@en ;
+  skos:example """
+ex:KaliYugaEra
+  a time:Era ;
+  rdfs:label \"Kali Yuga\"@en ;
+.
+""" ;
+.
+time:era
+  a owl:ObjectProperty ;
+  rdfs:domain time:GeneralDateTimeDescription ;
+  rdfs:label "in era"@en ;
+  rdfs:range time:Era ;
+  skos:definition "Era indication"@en ;
+  skos:example """
+ex:TwentyTwenty
+  a time:GeneralDateTimeDescription ;
+  time:year "5121"^^time:generalYear ;
+  time:era ex:KaliYuga ;
+.
+""" ;
+.
+time:CommonEra a time:Era ;
+  rdfs:label "Common Era"@en ;
+  skos:definition "The Era of the gregorian calendar, so that a general year in this era has the same value as a gYear."@en ;
+.
+:generalLSDay
+  rdf:type rdfs:Datatype ;
+  rdfs:label "Generalized luni-solar day"@en ;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions (
+      [
+        xsd:pattern "---(0[1-9]|[1-9][0-9])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fso]?" ;
+      ]
+    ) ;
+  skos:definition """Day of month - formulated as a text string with a pattern constraint to reproduce the same lexical form as time:generalDay, except that it is possible to indicate if a day is leap or omitted. 
+Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
+The """@en ;
+.
+:generalMonth
+  rdf:type rdfs:Datatype ;
+  rdfs:comment """Month of year - formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. 
+Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."""@en ;
+  rdfs:label "Generalized month"@en ;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions (
+      [
+        xsd:pattern "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?" ;
+      ]
+    ) ;
+  skos:definition """Month of year - formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. 
+Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."""@en ;
+.
+<https://www.w3.org/2006/time/ng>
+  a owl:Ontology ;
+  dct:created "2020-06-01"^^xsd:date ;
+  dct:creator <https://orcid.org/0000-0002-3787-8226> ;
+  dct:license <https://creativecommons.org/share-your-work/public-domain/cc0/> ;
+  dct:modified "2020-06-01"^^xsd:date ;
+  rdfs:comment "An extension of OWL-Time for non-Gregorian calendars" ;
+  rdfs:label "General extensions" ;
+  owl:imports <http://www.w3.org/2006/time> ;
+.
