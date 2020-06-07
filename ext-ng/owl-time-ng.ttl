@@ -15,13 +15,13 @@ time:Era
   rdfs:label "Era"@en ;
   skos:definition """A year numbering system. 
 No assumption is made with regards to the details of the numbering such as the presence of a year 0, or the possibility of years numbered negatively.
-Any year numbering system can be an instance of this class, from Roman Emperor regnal years to Chinese eras."""@en ;
+Any year numbering system can be an instance of this class even if the year definition doesn't exactly match the year definition of the Gregorian calendar.
+For instance Roman Emperor regnal years or Chinese eras are eras in the sense of this specification."""@en ;
   skos:example """
 ex:KaliYugaEra
   a time:Era ;
   rdfs:label \"Kali Yuga\"@en ;
-.
-""" ;
+.""" ;
 .
 time:era
   a owl:ObjectProperty ;
@@ -34,47 +34,87 @@ ex:TwentyTwenty
   a time:GeneralDateTimeDescription ;
   time:year "5121"^^time:generalYear ;
   time:era ex:KaliYuga ;
-.
-""" ;
+.""" ;
 .
 time:CommonEra a time:Era ;
   rdfs:label "Common Era"@en ;
-  skos:definition "The Era of the gregorian calendar, so that a general year in this era has the same value as a gYear."@en ;
+  skos:definition """The Era of the gregorian calendar, so that a general year in a date in this era is roughly equivalent to a gYear.
+
+This specification doesn't say anything about the general year being a year of the gregorian calendar, so you can use this era with other types of years.
+For example, a date in the Chinese calendar may be given using a year indicated in the Common Era, even though the Chinese year starts and ends after the corresponding year in the Gregorian calendar.
+This means that 
+
+ex:Date1
+  "xxx"^^:generalYear ;
+  :era :CommonEra ;
 .
-:generalLSDay
+should not be considered equivalent to
+
+ex:Date1
+  "xxx"^^xsd:gYear ;
+."""@en ;
+.
+time:generalDayL
   rdf:type rdfs:Datatype ;
-  rdfs:label "Generalized luni-solar day"@en ;
+  rdfs:label "Generalized day with leap"@en ;
   owl:onDatatype xsd:string ;
   owl:withRestrictions (
       [
         xsd:pattern "---(0[1-9]|[1-9][0-9])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fso]?" ;
       ]
     ) ;
-  skos:definition """Day of month - formulated as a text string with a pattern constraint to reproduce the same lexical form as time:generalDay, except that it is possible to indicate if a day is leap or omitted. 
-Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
-The """@en ;
+  skos:definition """Day of month in a calendar system where they can be leap or omitted - formulated as a text string with a pattern constraint to reproduce a lexical form similar to time:generalDay. 
+The difference with time:generalDay is an optional suffix at the end, in the form of one letter, which can be:
+- 'f' to represent the first day of a leap day
+- 's' to represent the second day of a leap day
+- 'o' to represent an omitted day (and thus an invalid date)
+
+For instance, in a the case of a month where the calendar days go 1, 2, 3, 3, 4, 6, etc. (which is possible in most luni-solar calendars), the days can be represented as: 
+"---01"^^:generalDay
+"---02"^^:generalDayL
+"---03f"^^:generalDayL
+"---03s"^^:generalDayL
+"---04"^^:generalDayL
+"---06"^^:generalDayL
+
+The value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
+The suffix is not mandatory even in the case of a leap day, so in our example, "---03"^^:generalDayL is valid but its meaning is ambiguous. 
+This allows the representation of dates found in historical documents where such ambiguity is present."""@en ;
 .
-:generalMonth
+time:generalMonthL
   rdf:type rdfs:Datatype ;
-  rdfs:comment """Month of year - formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. 
-Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."""@en ;
-  rdfs:label "Generalized month"@en ;
+  rdfs:label "Generalized month with leap"@en ;
   owl:onDatatype xsd:string ;
   owl:withRestrictions (
       [
-        xsd:pattern "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?" ;
+        xsd:pattern "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fso]?" ;
       ]
     ) ;
-  skos:definition """Month of year - formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. 
-Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."""@en ;
+  skos:definition """Month of year - formulated as a text string with a pattern constraint to reproduce a lexical form similar to time:generalMonth. 
+The difference with time:generalMonth is an optional suffix at the end, in the form of one letter, which can be:
+- 'f' to represent the first month of a leap month
+- 's' to represent the second month of a leap month
+- 'o' to represent an omitted month (and thus an invalid date)
+
+For instance, in a the case of a year where the months go 1, 2, 3, 3, 4, 5, the months can be represented as:
+"---01"^^:generalMonthL
+"---02"^^:generalMonthL
+"---03f"^^:generalMonthL
+"---03s"^^:generalMonthL
+"---04"^^:generalMonthL
+"---05"^^:generalMonthL
+
+The value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
+The suffix is not mandatory even in the case of a leap month, so in our example, "---03"^^:generalMonthL is valid but its meaning is ambiguous.
+This allows the representation of dates found in historical documents where such ambiguity is present."""@en ;
 .
 <https://www.w3.org/2006/time/ng>
   a owl:Ontology ;
   dct:created "2020-06-01"^^xsd:date ;
   dct:creator <https://orcid.org/0000-0002-3787-8226> ;
   dct:license <https://creativecommons.org/share-your-work/public-domain/cc0/> ;
-  dct:modified "2020-06-01"^^xsd:date ;
-  rdfs:comment "An extension of OWL-Time for non-Gregorian calendars" ;
-  rdfs:label "General extensions" ;
+  dct:modified "2020-06-07"^^xsd:date ;
+  rdfs:comment "An extension of OWL-Time for non-Gregorian calendars"@en ;
+  rdfs:label "General extensions for non-Gregorian calendars" ;
   owl:imports <http://www.w3.org/2006/time> ;
 .
