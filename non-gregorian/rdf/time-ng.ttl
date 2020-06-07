@@ -13,15 +13,67 @@
 time:Era
   a owl:Class ;
   rdfs:label "Era"@en ;
-  skos:definition """A year numbering system. 
+  skos:definition """A linear (non-cyclic) year numbering system. 
 No assumption is made with regards to the details of the numbering such as the presence of a year 0, or the possibility of years numbered negatively.
 Any year numbering system can be an instance of this class even if the year definition doesn't exactly match the year definition of the Gregorian calendar.
-For instance Roman Emperor regnal years or Chinese eras are eras in the sense of this specification."""@en ;
+For instance Roman Emperor regnal years or Chinese eras can be encoded as instances of :Era.
+
+An era can correspond to a temporal entity (ex: a Roman Emperor reign) but does not have to (for instance the Common Era which does not have bounds for its beginning or end)."""@en ;
   skos:example """
 ex:KaliYugaEra
   a time:Era ;
   rdfs:label \"Kali Yuga\"@en ;
 .""" ;
+.
+time:GeneralMonthOfYear
+  a owl:Class ;
+  rdfs:label "General month of year"@en ;
+  rdfs:subClassOf :DateTimeDescription ;
+  skos:definition """Similar to time:MonthOfYear without the mandatory time:month indication. 
+The reason is that the numbering of months can vary inside a specific calendar system.
+For instance in some regions of Asia the month starting the year has been a political issue, and some date indications are in a gray area between two numbering systems and their month number is ambiguous.
+Individuals of this class can thus represent month names, which tends to be much more stable than their number."""@en ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:hasValue :unitMonth ;
+      owl:onProperty :unitType ;
+    ] ;
+    rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :day ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :hour ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :minute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :second ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :week ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty :year ;
+    ] ;
+.
+time:Value
+  a owl:ObjectProperty ;
+  rdfs:label "Position"@en ;
+  skos:definition """The position of the individual on a cycle that contains duplicate and omitted entries (ex: luni-solar days and months).
+Three individuals are defined in this ontology, but the membership is open."""@en ;
 .
 time:era
   a owl:ObjectProperty ;
@@ -36,11 +88,71 @@ ex:TwentyTwenty
   time:era ex:KaliYuga ;
 .""" ;
 .
+:generalMonthOfYear
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "The month of the year, whose value is a member of the class time:GeneralMonthOfYear"@en ;
+  rdfs:domain time:GeneralDateTimeDescription ;
+  rdfs:label "month of year"@en ;
+  rdfs:range time:GeneralMonthOfYear ;
+  skos:definition "The month of the year, whose value is a member of the class time:GeneralMonthOfYear"@en ;
+.
+time:reignOf
+  a owl:ObjectProperty ;
+  rdfs:domain time:Era ;
+  rdfs:label "in reign of"@en ;
+  skos:definition """Indicates the person whose reign is associated with an era, which is a very common feature found globally.
+Most of the time one era is assciated with one reign (ex: Roman Regnal years), sometimes several eras are associated with one reign (ex: Chinese eras). Both cases can use this property.
+No range is indicated so that the associated person can have any relevant rdf:type."""@en ;
+  skos:example """
+ex:DiocletianRegnalYears
+  a time:Era ;
+  time:reignOf ex: Diocletian ;
+.""" ;
+.
+time:monthValueType
+  a owl:ObjectProperty ;
+  rdfs:label "month membership type"@en ;
+  rdfs:range time:CyclePosition ;
+  skos:definition """The position of the individual on a cycle that contains duplicate and omitted entries (ex: luni-solar days and months).
+Note that due to the open-world nature of the OWL semantics, there is no such thing as an absent triple or property, and thus no default value."""@en ;
+.
+time:LeapPositionFirst
+  a time:ValueType ;
+  rdfs:label "first"@en ;
+  skos:altLabel "intercalary"@en ;
+  skos:definition "This position denotes the first position in a case of a duplicate value. The typical example is the first of two consecutive month with the same numbered in a luni-solar calendar." ;
+.
+time:LeapPositionSecond
+  a time:LeapPosition ;
+  rdfs:label "second"@en ;
+  skos:altLabel "delayed"@en ;
+  skos:definition "This position denotes the second position in a case of a duplicate value. The typical example is the second of two consecutive month with the same numbered in a luni-solar calendar." ;
+.
+time:LeapPositionOmitted
+  a time:LeapPosition ;
+  rdfs:label "omitted"@en ;
+  skos:definition "This position denotes an omitted value. The typical example is when there is no day X in a month in a luni-solar calendar." ;
+.
+time:LeapPositionUnique
+  a time:LeapPosition ;
+  rdfs:label "single"@en ;
+  skos:definition "This position denotes a case where " ;
+.
+time:LeapPosition
+  a time:LeapPosition ;
+  rdfs:label "single"@en ;
+  skos:definition "This position denotes a case where " ;
+.
+time:LeapPositionUnknown
+  a time:LeapPosition ;
+  rdfs:label "single"@en ;
+  skos:definition "This position denotes an omitted value. The typical example is when there is no day X in a month in a luni-solar calendar." ;
+.
 time:CommonEra a time:Era ;
   rdfs:label "Common Era"@en ;
   skos:definition """The Era of the gregorian calendar, so that a general year in a date in this era is roughly equivalent to a gYear.
 
-This specification doesn't say anything about the general year being a year of the gregorian calendar, so you can use this era with other types of years.
+This specification doesn't say anything about the general year being a year of the gregorian calendar, so any type of year can be used.
 For example, a date in the Chinese calendar may be given using a year indicated in the Common Era, even though the Chinese year starts and ends after the corresponding year in the Gregorian calendar.
 This means that 
 
@@ -54,13 +166,13 @@ ex:Date1
   "xxx"^^xsd:gYear ;
 ."""@en ;
 .
-time:generalDayL
+time:generalDayS
   rdf:type rdfs:Datatype ;
-  rdfs:label "Generalized day with leap"@en ;
+  rdfs:label "Generalized day with suffix"@en ;
   owl:onDatatype xsd:string ;
   owl:withRestrictions (
       [
-        xsd:pattern "---(0[1-9]|[1-9][0-9])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fso]?" ;
+        xsd:pattern "---(0[1-9]|[1-9][0-9])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fsouan]?" ;
       ]
     ) ;
   skos:definition """Day of month in a calendar system where they can be leap or omitted - formulated as a text string with a pattern constraint to reproduce a lexical form similar to time:generalDay. 
@@ -68,45 +180,35 @@ The difference with time:generalDay is an optional suffix at the end, in the for
 - 'f' to represent the first day of a leap day
 - 's' to represent the second day of a leap day
 - 'o' to represent an omitted day (and thus an invalid date)
+- 'u' to represent a unique day (a day that happens only once)
+- 'a' to represent a day which may be a unique, first or second day (ambiguous), this is the most common case when recording historical date indications
+- 'n' to represent a day which is not single, but may be first or second
+
+This last case is used in cases where there is a leap indication, but it is unclear if the indication marks the first or second day of a leap day.
+
+When no suffix is present, it is equivalent to the suffix 'a'.
 
 For instance, in a the case of a month where the calendar days go 1, 2, 3, 3, 4, 6, etc. (which is possible in most luni-solar calendars), the days can be represented as: 
-"---01"^^:generalDay
-"---02"^^:generalDayL
-"---03f"^^:generalDayL
-"---03s"^^:generalDayL
-"---04"^^:generalDayL
-"---06"^^:generalDayL
+"---01u"^^:generalDayS
+"---02u"^^:generalDayS
+"---03f"^^:generalDayS
+"---03s"^^:generalDayS
+"---04u"^^:generalDayS
+"---06u"^^:generalDayS
 
-The value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
-The suffix is not mandatory even in the case of a leap day, so in our example, "---03"^^:generalDayL is valid but its meaning is ambiguous. 
-This allows the representation of dates found in historical documents where such ambiguity is present."""@en ;
+The value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."""@en ;
 .
-time:generalMonthL
+time:generalMonthS
   rdf:type rdfs:Datatype ;
-  rdfs:label "Generalized month with leap"@en ;
+  rdfs:label "Generalized month with suffix"@en ;
   owl:onDatatype xsd:string ;
   owl:withRestrictions (
       [
-        xsd:pattern "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fso]?" ;
+        xsd:pattern "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?[fsouan]?" ;
       ]
     ) ;
   skos:definition """Month of year - formulated as a text string with a pattern constraint to reproduce a lexical form similar to time:generalMonth. 
-The difference with time:generalMonth is an optional suffix at the end, in the form of one letter, which can be:
-- 'f' to represent the first month of a leap month
-- 's' to represent the second month of a leap month
-- 'o' to represent an omitted month (and thus an invalid date)
-
-For instance, in a the case of a year where the months go 1, 2, 3, 3, 4, 5, the months can be represented as:
-"---01"^^:generalMonthL
-"---02"^^:generalMonthL
-"---03f"^^:generalMonthL
-"---03s"^^:generalMonthL
-"---04"^^:generalMonthL
-"---05"^^:generalMonthL
-
-The value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.
-The suffix is not mandatory even in the case of a leap month, so in our example, "---03"^^:generalMonthL is valid but its meaning is ambiguous.
-This allows the representation of dates found in historical documents where such ambiguity is present."""@en ;
+The difference with time:generalMonth is an optional suffix at the end, in the form of one letter, which can be 'f', 's', 'o', 'u', 'a' or 'n', with the same meaning as in time:generalDayS."""@en ;
 .
 <https://www.w3.org/2006/time/ng>
   a owl:Ontology ;
