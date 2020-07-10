@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+        specStatus: "unofficial",
+        editors: [{
+          name: "Elie Roux",
+          url: "https://orcid.org/0000-0002-3787-8226",
+        }],
+        github: "https://github.com/eroux/owl-time-ext",
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Extensions to the OWL-Time Ontology - Eras</h1>
+    <section id='abstract'>
+       <p>OWL-Time [[owl-time]] is an ontology for temporal entities and relations between them.
+      OWL-Time defines simple temporal entities (intervals and instants). 
+      This note adds one new class <code>time:Era</code>, two properties <code>time:era</code> and <code>time:reignOf</code>, and an instance <code>time:CommonEra</code> to allow for the description of eras.
+      </p>
+      <p style="text-align: center;">The namespace for OWL-Time terms is <code>http://www.w3.org/2006/time#</code></p>
+      <p style="text-align: center;">The suggested prefix for the OWL-Time namespace is <code>time</code></p>
+      <p style="text-align: center;">The OWL-Time ontology is available <a href="https://www.w3.org/2006/time">here</a>.
+      </p>
+      <p style="text-align: center;">The OWL-Time ontology with these extensions is available <a
+          href="https://raw.githubusercontent.com/eroux/owl-time-ext/gh-pages/ext-era/rdf/time-era.ttl">here</a>.
+      </p>
+    </section>
+    <section id='sotd'>
+  <section id="sotd">
+    <p>This is a Public Draft of a document prepared by Elie Roux.
+      The document is prepared following W3C conventions. This document is not an OGC Standard. This document is
+      distributed for review and comment. This document is subject to change without notice and may not be referred to
+      as an OGC Standard. Recipients of this document are invited to submit, with their comments, notification of any
+      relevant patent rights of which they are aware and to provide supporting documentation. </p>
+    <p>New classes and properties are introduced in this extension to OWL-Time.
+      The new elements concern temporal entities which cannot be expressed in OWL-Time.
+      The ontology document imports OWL-Time, and adds the new elements and axioms.
+      IRIs denoting the new elements are placed in the OWL-Time namespace since it is expected that they could be added
+      to the normative ontology in a future revision of OWL-Time.</p>
+    </section>
+
+    <section id="motivation" class="informative">
+    <h2>Motivation and background</h2>
+    <p>OWL-Time is an ontology for describing temporal information. As part of its mission it implements ways to encode dates in the Gregorian calendar.</p>
+    <p>This extension answers a need by Digital Humanists to encode dates in other types of calendar using different eras.</p> 
+    </section>
+
+      <section id="namespaces">
+    <h2>Notation and namespaces</h2>
+    <p>Classes and properties are denoted in this specification using <a
+        href="https://www.w3.org/TR/curie/">Compact URIs</a> [[?curie]]. </p>
+    <p>The namespace for all classes and properties in OWL-Time and this extension is
+      <code>http://www.w3.org/2006/time#</code>. </p>
+    <p>The table below indicates the full list of namespaces and prefixes used in this document.</p>
+    <table id="namespacesTable">
+      <thead>
+        <tr>
+          <th>Prefix</th>
+          <th>Namespace</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>dcterms</code></td>
+          <td><code>http://purl.org/dc/terms/</code></td>
+        </tr>
+        <tr>
+          <td><code>ex</code></td>
+          <td><code>http://example.org/time/</code></td>
+        </tr>
+        <tr>
+          <td><code>owl</code></td>
+          <td><code>http://www.w3.org/2002/07/owl#</code></td>
+        </tr>
+        <tr>
+          <td><code>rdf</code></td>
+          <td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td>
+        </tr>
+        <tr>
+          <td><code>rdfs</code></td>
+          <td><code>http://www.w3.org/2000/01/rdf-schema#</code></td>
+        </tr>
+        <tr>
+          <td><code>time</code></td>
+          <td><code>http://www.w3.org/2006/time#</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Where class descriptions include local restrictions on properties, these are described using the OWL 2 Manchester
+      Syntax [[owl2-manchester-syntax]]. </p>
+
+    <p>Examples and other code fragments are serialized using RDF 1.1 Turtle notation [[turtle]].</p>
+
+  </section>
+
+
+  <section id="vocabulary">
+    <h2>Vocabulary specification</h2>
+
+    <section id="classes">
+      <h3>Classes</h3>
+
+      <section id="time:Era">
+        <h4>Era</h4>
+        <table class="definition" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 120px;">Class:</th>
+              <th><code><a href="#time:Era">time:Era</a></code></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IRI:</td>
+              <td>
+                <code><a href="https://raw.githubusercontent.com/eroux/owl-time-ext/gh-pages/era/rdf/time-ng.ttl">http://www.w3.org/2006/time#Era</a></code>
+              </td>
+            </tr>
+            <tr>
+              <td>Definition:</td>
+              <td>A linear (non-cyclic) year numbering system. 
+No assumption is made with regards to the details of how years are numbered in the era, such as a year 0, or years with negative indexes.
+Any year numbering system can be an instance of this class even if the year definition doesn't match the one of the Gregorian calendar.
+For instance Roman regnal years or Chinese eras can be encoded as instances of :Era.</td>
+            </tr>
+            <tr>
+              <td>Instance of:</td>
+              <td><code>owl:Class</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+    </section>
+
+
+    <section id="properties">
+      <h3>Properties</h3>
+
+      <section id="time:era">
+        <h4>era</h4>
+        <table class="definition" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 120px;">Property:</th>
+              <th><code><a href="#time:hasPart">time:era</a></code></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IRI:</td>
+              <td>
+                <code><a href="https://github.com/eroux/owl-time-ext/blob/gh-pages/ext-era/rdf/time-era.ttl">http://www.w3.org/2006/time#era</a></code>
+              </td>
+            </tr>
+            <tr>
+              <td>Definition:</td>
+              <td>Era indication</td>
+            </tr>
+            <tr>
+              <td>Instance of:</td>
+              <td><code>owl:ObjectProperty</code></td>
+            </tr>
+            <tr>
+              <td>Domain:</td>
+              <td><code><a href="https://www.w3.org/TR/owl-time/#time:GeneralDateTimeDescription">time:GeneralDateTimeDescription</a></code>
+              </td>
+            </tr>
+            <tr>
+              <td>Range:</td>
+              <td><code><a href="#time:Era">time:Era</a></code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+      <section id="time:reignOf">
+        <h4>era</h4>
+        <table class="definition" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 120px;">Property:</th>
+              <th><code><a href="#time:hasPart">time:reignOf</a></code></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IRI:</td>
+              <td>
+                <code><a href="https://github.com/eroux/owl-time-ext/blob/gh-pages/ext-era/rdf/time-era.ttl">http://www.w3.org/2006/time#era</a></code>
+              </td>
+            </tr>
+            <tr>
+              <td>Definition:</td>
+              <td>Era indication</td>
+            </tr>
+            <tr>
+              <td>Instance of:</td>
+              <td><code>owl:ObjectProperty</code></td>
+            </tr>
+            <tr>
+              <td>Domain:</td>
+              <td><code><a href="#time:Era">time:Era</a></code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+    </section>
+
+    <section id="individuals">
+      <h3>Individuals</h3>
+
+      <p>
+      <code><a href="#time:CommonEra">time:CommonEra</a></code>
+      </p>
+
+      <section id="time:CommonEra">
+        <h4>CommonEra</h4>
+        <table class="definition" style="width: 812px;">
+          <tbody>
+            <tr>
+            <th style="width: 120px;">Class</th>
+            <th>Individual</th>
+            </tr>
+            <tr id="time:CommonEra">
+            <td rowspan="1"><code><a href="#time:Era">time:Era</a></code></td>
+            <td><code>time:CommonEra</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+    </section>
+
+<section class="informative">
+    <h2>Examples</h2>
+    
+    <section>
+      <h3>Date in a Roman calendar</h3>
+      <p>
+        September 25th 1994 is found in the Phugpa Tibetan calendar as being the second day numbered 20th is the first of two months numbered 8. This would be noted: 
+      </p>
+      <aside class="example" id="ex-time-ng-1" title="September 25th in the Phugpa Tibetan Calendar">
+        <pre class="nohighlight turtle">
+  ex:Sept25thPhugpa
+    a time:GeneralDateTimeDescription ;
+    rdfs:label "September 25th in the Phugpa Tibetan calendar" ;
+    time:month "--8f"^^time:generalMonthL ;
+    time:day "---20s"^^time:generalDayL ;
+    ...
+  .
+      </pre>
+      </aside>    
+    </section>
+</section>
+
+    <section id='conformance'>
+      <!-- This section is filled automatically by ReSpec. -->
+    </section>
+  </body>
+</html>
