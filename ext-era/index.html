@@ -118,7 +118,7 @@
               <td>A linear (non-cyclic) frame of reference used to assign numbers to years. 
 This class can be used for any year numbering system, even if the definition of "year" in that system doesn't match the one of the Gregorian calendar.
 For instance Roman reigns (like they reign of Claudius) or Japanese eras (like the Reiwa era) can be encoded as instances of <code>time:Era</code>.
-This specification makes no assumption about the possibility of a year 0, or of years with negative indexes.</td>
+This specification makes no assumption about the possibility of a year 0, or of years with negative indexes. An era can correspond to a temporal entity (ex: a Roman Emperor reign) but does not have to (ex: the Common Era, which doesn't have an upper limit).</td>
             </tr>
             <tr>
               <td>Instance of:</td>
@@ -270,7 +270,7 @@ ex:11thOfJuly a time:GeneralDateTimeDescription ;
 .
 ex:Year6OfClaudiusReign a time:GeneralDateTimeDescription ;
   time:year "0006"^^time:generalYear ;
-  time:era ex:ClaudiusRegnalYears ;
+  time:era  ex:ClaudiusRegnalYears ;
 .
       </pre>
       </aside>    

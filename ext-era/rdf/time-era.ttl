@@ -13,17 +13,12 @@
 time:Era
   a owl:Class ;
   rdfs:label "Era"@en ;
-  skos:definition """A linear (non-cyclic) year numbering system. 
-No assumption is made with regards to the details of how years are numbered in the era, such as a year 0, or years with negative indexes.
-Any year numbering system can be an instance of this class even if the year definition doesn't match the one of the Gregorian calendar.
-For instance Roman regnal years or Chinese eras can be encoded as instances of :Era.
+  skos:definition """A linear (non-cyclic) frame of reference used to assign numbers to years. 
+This class can be used for any year numbering system, even if the definition of "year" in that system doesn't match the one of the Gregorian calendar.
+For instance Roman reigns (like they reign of Claudius) or Japanese eras (like the Reiwa era) can be encoded as instances of <code>time:Era</code>.
+This specification makes no assumption about the possibility of a year 0, or of years with negative indexes.
 
-An era can correspond to a temporal entity (ex: a Roman Emperor reign) but does not have to (for instance the Common Era which does not have bounds for its beginning or end)."""@en ;
-  skos:example """
-ex:KaliYugaEra
-  a time:Era ;
-  rdfs:label \"Kali Yuga\"@en ;
-.""" ;
+An era can correspond to a temporal entity (ex: a Roman Emperor reign) but does not have to (ex: the Common Era, which doesn't have an upper limit)."""@en ;
 .
 time:era
   a owl:ObjectProperty ;
@@ -34,49 +29,35 @@ time:era
   skos:example """
 ex:TwentyTwenty
   a time:GeneralDateTimeDescription ;
-  time:year "5121"^^time:generalYear ;
-  time:era ex:KaliYuga ;
+  time:year "0002"^^time:generalYear ;
+  time:era ex:Reiwa ;
 .""" ;
 .
 time:reignOf
   a owl:ObjectProperty ;
   rdfs:domain time:Era ;
   rdfs:label "in reign of"@en ;
-  skos:definition """Indicates the person whose reign is associated with the era.
-Most eras are assciated with one reign (ex: Roman regnal years), but sometimes several eras are associated with one reign (ex: later Chinese eras).
-This property can be used in both cases.
+  skos:definition """The object of this property is the person whose reign is associated with the era. In some cases multiple eras are associated with the same reign (especially in the late Chinese context).
 No range is indicated so that the associated person can have any relevant type."""@en ;
   skos:example """
-ex:DiocletianRegnalYears
+ex:ClaudiusRegnalYears
   a time:Era ;
-  time:reignOf ex:Diocletian ;
+  time:reignOf ex:Claudius ;
 .""" ;
 .
 time:CommonEra a time:Era ;
   rdfs:label "Common Era"@en ;
-  skos:definition """The Era of the modern gregorian calendar. It is defined so that a general year in a date object associated with this era is roughly equivalent to a gYear.
+  skos:definition """The Era of the modern gregorian calendar, so that a <code>time:generalYear</code> associated with this era is roughly equivalent to a <code>xs:gYear</code>.
 
-This specification doesn't say anything about the general year being a year of the gregorian calendar, so any type of year can be used.
-For example, a date in the Chinese calendar may be given using a year indicated in the Common Era, even though the Chinese year starts and ends after the one of the Gregorian calendar.
-This means that 
-
-ex:Date1
-  "xxx"^^:generalYear ;
-  :era :CommonEra ;
-.
-should not be considered equivalent to
-
-ex:Date1
-  "xxx"^^xsd:gYear ;
-."""@en ;
+The general year associated with this era can be a non-gregorian year. For example, some Chinese calendars may indicate years in the Common Era, even though the Chinese year starts and ends after the gregorian one."""@en ;
 .
 <https://www.w3.org/2006/time/era>
   a owl:Ontology ;
   dct:created "2020-07-10"^^xsd:date ;
   dct:creator <https://orcid.org/0000-0002-3787-8226> ;
   dct:license <https://creativecommons.org/share-your-work/public-domain/cc0/> ;
-  dct:modified "2020-07-10"^^xsd:date ;
-  rdfs:comment "An extension of OWL-Time allowing encoding of eras"@en ;
+  dct:modified "2020-07-11"^^xsd:date ;
+  rdfs:comment "An extension of the OWL-Time ontology - Eras"@en ;
   rdfs:label "OWL-Time Era extensions" ;
   owl:imports <http://www.w3.org/2006/time> ;
 .
