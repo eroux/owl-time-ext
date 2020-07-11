@@ -75,6 +75,10 @@
           <td><code>time</code></td>
           <td><code>http://www.w3.org/2006/time#</code></td>
         </tr>
+        <tr>
+          <td><code>xs</code></td>
+          <td><code>http://www.w3.org/2001/XMLSchema#</code></td>
+        </tr>
       </tbody>
     </table>
 
@@ -110,10 +114,10 @@
             </tr>
             <tr>
               <td>Definition:</td>
-              <td>A linear (non-cyclic) year numbering system. 
-No assumption is made with regards to the details of how years are numbered in the era, such as a year 0, or years with negative indexes.
-Any year numbering system can be an instance of this class even if the year definition doesn't match the one of the Gregorian calendar.
-For instance Roman regnal years or Chinese eras can be encoded as instances of <code>time:Era</code>.</td>
+              <td>A linear (non-cyclic) frame of reference used to assign numbers to years. 
+This class can be used for any year numbering system, even if the definition of "year" in that system doesn't match the one of the Gregorian calendar.
+For instance Roman reigns (like they reign of Claudius) or Japanese eras (like the Reiwa era) can be encoded as instances of <code>time:Era</code>.
+This specification makes no assumption about the possibility of a year 0, or of years with negative indexes.</td>
             </tr>
             <tr>
               <td>Instance of:</td>
@@ -185,9 +189,7 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of <
             </tr>
             <tr>
               <td>Definition:</td>
-              <td>Indicates the person whose reign is associated with the era.
-Most eras are assciated with one reign (ex: Roman regnal years), but sometimes several eras are associated with one reign (ex: later Chinese eras).
-This property can be used in both cases.
+              <td>The object of this property is the person whose reign is associated with the era. In some cases multiple eras are associated with the same reign (especially in the late Chinese context).
 No range is indicated so that the associated person can have any relevant type.</td>
             </tr>
             <tr>
@@ -212,10 +214,9 @@ No range is indicated so that the associated person can have any relevant type.<
       <code><a href="#time:CommonEra">time:CommonEra</a></code>
       </p>
 
-      <p>The Era of the modern gregorian calendar. It is defined so that a general year in a date object associated with this era is roughly equivalent to a gYear.
+      <p>The Era of the modern gregorian calendar, so that a <code>time:generalYear</code> associated with this era is roughly equivalent to a <code>xs:gYear</code>.
 
-This specification doesn't say anything about the general year being a year of the gregorian calendar, so any type of year can be used.
-For example, a date in the Chinese calendar may be given using a year indicated in the Common Era, even though the Chinese year starts and ends after the one of the Gregorian calendar.</p>
+The general year associated with this era can be a non-gregorian year. For example, some Chinese calendars may indicate years in the Common Era, even though the Chinese year starts and ends after the gregorian one.</p>
 
       <section id="time:CommonEra">
         <h4>CommonEra</h4>
@@ -237,20 +238,38 @@ For example, a date in the Chinese calendar may be given using a year indicated 
 
 <section class="informative">
     <h2>Examples</h2>
-    
+  
     <section>
-      <h3>Date in a Roman calendar</h3>
+      <h3>Date using a Japanese Era</h3>
       <p>
-        The 4th year in the reign of Diocletian could be noted as follows: 
+        The <a href="https://en.wikipedia.org/wiki/Reiwa" title="Wikipedia page of the Reiwa era" target="_blank">Reiwa era</a> (associated with the reign of Naruhito) is used to indicate years in the official Japanese calendar since May 2019. The 11th of July 2020 could be encoded as follows:
       </p>
-      <aside class="example" id="ex-time-era-1" title="4th year in the reign of Diocletian">
-        <pre class="nohighlight turtle">ex:DiocletianRegnalYears
-  a time:Era ;
-  time:reignOf ex:Diocletian ;
+      <aside class="example" id="ex-time-era-1" title="6th year in the reign of Claudius">
+        <pre class="nohighlight turtle">ex:Reiwa a time:Era ;
+  time:reignOf ex:Naruhito ;
 .
-ex:Year4OfDiocletiansReign a time:GeneralDateTimeDescription ;
-  time:year "0004"^^time:generalYear ;
-  time:era ex:DiocletianRegnalYears ;
+ex:11thOfJuly a time:GeneralDateTimeDescription ;
+  time:year  "0002"^^time:generalYear ;
+  time:era   ex:Reiwa ;
+  time:month "--07"^^xs:gMonth ;
+  time:day   "---11"^^xs:gDay ;
+.
+      </pre>
+      </aside>    
+    </section>
+
+    <section>
+      <h3>Encoding Dates found in Roman documents</h3>
+      <p>
+        Some documents refer to the <a href="https://godot.date/id/SnL6HJLfUFUHcJB7zjZQEP" title="Information on the sixth year in the reign of Claudius on godot.date" target="_blank">sixth year in the reign of Claudius</a>, which occured in 45-46 in the Common Era. It can be encoded as:
+      </p>
+      <aside class="example" id="ex-time-era-1" title="6th year in the reign of Claudius">
+        <pre class="nohighlight turtle">ex:ClaudiusRegnalYears a time:Era ;
+  time:reignOf ex:Claudius ;
+.
+ex:Year6OfClaudiusReign a time:GeneralDateTimeDescription ;
+  time:year "0006"^^time:generalYear ;
+  time:era ex:ClaudiusRegnalYears ;
 .
       </pre>
       </aside>    
