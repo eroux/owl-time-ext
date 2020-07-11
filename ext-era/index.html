@@ -29,7 +29,6 @@
           href="https://raw.githubusercontent.com/eroux/owl-time-ext/gh-pages/ext-era/rdf/time-era.ttl">here</a>.
       </p>
     </section>
-    <section id='sotd'>
   <section id="sotd">
     <p>This is a Public Draft of a document prepared by Elie Roux.
       The document is prepared following W3C conventions. This document is not an OGC Standard. This document is
@@ -65,24 +64,12 @@
       </thead>
       <tbody>
         <tr>
-          <td><code>dcterms</code></td>
-          <td><code>http://purl.org/dc/terms/</code></td>
-        </tr>
-        <tr>
           <td><code>ex</code></td>
           <td><code>http://example.org/time/</code></td>
         </tr>
         <tr>
           <td><code>owl</code></td>
           <td><code>http://www.w3.org/2002/07/owl#</code></td>
-        </tr>
-        <tr>
-          <td><code>rdf</code></td>
-          <td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td>
-        </tr>
-        <tr>
-          <td><code>rdfs</code></td>
-          <td><code>http://www.w3.org/2000/01/rdf-schema#</code></td>
         </tr>
         <tr>
           <td><code>time</code></td>
@@ -126,7 +113,7 @@
               <td>A linear (non-cyclic) year numbering system. 
 No assumption is made with regards to the details of how years are numbered in the era, such as a year 0, or years with negative indexes.
 Any year numbering system can be an instance of this class even if the year definition doesn't match the one of the Gregorian calendar.
-For instance Roman regnal years or Chinese eras can be encoded as instances of :Era.</td>
+For instance Roman regnal years or Chinese eras can be encoded as instances of <code>time:Era</code>.</td>
             </tr>
             <tr>
               <td>Instance of:</td>
@@ -148,7 +135,7 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of :
           <thead>
             <tr>
               <th style="width: 120px;">Property:</th>
-              <th><code><a href="#time:hasPart">time:era</a></code></th>
+              <th><code><a href="#time:era">time:era</a></code></th>
             </tr>
           </thead>
           <tbody>
@@ -186,7 +173,7 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of :
           <thead>
             <tr>
               <th style="width: 120px;">Property:</th>
-              <th><code><a href="#time:hasPart">time:reignOf</a></code></th>
+              <th><code><a href="#time:reignOf">time:reignOf</a></code></th>
             </tr>
           </thead>
           <tbody>
@@ -198,7 +185,10 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of :
             </tr>
             <tr>
               <td>Definition:</td>
-              <td>Era indication</td>
+              <td>Indicates the person whose reign is associated with the era.
+Most eras are assciated with one reign (ex: Roman regnal years), but sometimes several eras are associated with one reign (ex: later Chinese eras).
+This property can be used in both cases.
+No range is indicated so that the associated person can have any relevant type.</td>
             </tr>
             <tr>
               <td>Instance of:</td>
@@ -221,6 +211,11 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of :
       <p>
       <code><a href="#time:CommonEra">time:CommonEra</a></code>
       </p>
+
+      <p>The Era of the modern gregorian calendar. It is defined so that a general year in a date object associated with this era is roughly equivalent to a gYear.
+
+This specification doesn't say anything about the general year being a year of the gregorian calendar, so any type of year can be used.
+For example, a date in the Chinese calendar may be given using a year indicated in the Common Era, even though the Chinese year starts and ends after the one of the Gregorian calendar.</p>
 
       <section id="time:CommonEra">
         <h4>CommonEra</h4>
@@ -246,17 +241,17 @@ For instance Roman regnal years or Chinese eras can be encoded as instances of :
     <section>
       <h3>Date in a Roman calendar</h3>
       <p>
-        September 25th 1994 is found in the Phugpa Tibetan calendar as being the second day numbered 20th is the first of two months numbered 8. This would be noted: 
+        The 4th year in the reign of Diocletian could be noted as follows: 
       </p>
-      <aside class="example" id="ex-time-ng-1" title="September 25th in the Phugpa Tibetan Calendar">
-        <pre class="nohighlight turtle">
-  ex:Sept25thPhugpa
-    a time:GeneralDateTimeDescription ;
-    rdfs:label "September 25th in the Phugpa Tibetan calendar" ;
-    time:month "--8f"^^time:generalMonthL ;
-    time:day "---20s"^^time:generalDayL ;
-    ...
-  .
+      <aside class="example" id="ex-time-era-1" title="4th year in the reign of Diocletian">
+        <pre class="nohighlight turtle">ex:DiocletianRegnalYears
+  a time:Era ;
+  time:reignOf ex:Diocletian ;
+.
+ex:Year4OfDiocletiansReign a time:GeneralDateTimeDescription ;
+  time:year "0004"^^time:generalYear ;
+  time:era ex:DiocletianRegnalYears ;
+.
       </pre>
       </aside>    
     </section>
